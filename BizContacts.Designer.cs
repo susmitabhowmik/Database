@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtPostalCode = new System.Windows.Forms.TextBox();
@@ -59,8 +60,10 @@
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.txtNotes = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboSearch = new System.Windows.Forms.ComboBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -334,20 +337,28 @@
             this.txtNotes.Size = new System.Drawing.Size(256, 171);
             this.txtNotes.TabIndex = 32;
             // 
-            // comboBox1
+            // cboSearch
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(423, 378);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(130, 21);
-            this.comboBox1.TabIndex = 33;
+            this.cboSearch.FormattingEnabled = true;
+            this.cboSearch.Items.AddRange(new object[] {
+            "First Name",
+            "Last Name",
+            "Company"});
+            this.cboSearch.Location = new System.Drawing.Point(423, 378);
+            this.cboSearch.Name = "cboSearch";
+            this.cboSearch.Size = new System.Drawing.Size(130, 21);
+            this.cboSearch.TabIndex = 33;
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(Database.BizContacts);
             // 
             // BizContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 640);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboSearch);
             this.Controls.Add(this.txtNotes);
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnAdd);
@@ -381,7 +392,9 @@
             this.Controls.Add(this.label1);
             this.Name = "BizContacts";
             this.Text = "BizContacts";
+            this.Load += new System.EventHandler(this.BizContacts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -420,6 +433,7 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Button btnEdit;
         private System.Windows.Forms.TextBox txtNotes;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboSearch;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }
