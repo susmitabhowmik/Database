@@ -47,6 +47,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressBookDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressBookDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AddressBookDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AddressBookDataSet1.xsd</DependentUpon>
+    </Compile>
     <Compile Include="BizContacts.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +67,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DataClasses2.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses2.dbml</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -81,6 +96,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="AddressBookDataSet.xsc">
+      <DependentUpon>AddressBookDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AddressBookDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AddressBookDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AddressBookDataSet.xss">
+      <DependentUpon>AddressBookDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AddressBookDataSet1.xsc">
+      <DependentUpon>AddressBookDataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="AddressBookDataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AddressBookDataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="AddressBookDataSet1.xss">
+      <DependentUpon>AddressBookDataSet1.xsd</DependentUpon>
+    </None>
     <None Include="DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
@@ -88,6 +125,14 @@
     </None>
     <None Include="DataClasses1.dbml.layout">
       <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
+    <None Include="DataClasses2.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses2.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataClasses2.dbml.layout">
+      <DependentUpon>DataClasses2.dbml</DependentUpon>
     </None>
     <None Include="Properties\DataSources\BizContacts.datasource" />
     <None Include="Properties\Settings.settings">

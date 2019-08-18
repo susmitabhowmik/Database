@@ -61,8 +61,18 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.txtNotes = new System.Windows.Forms.TextBox();
             this.cboSearch = new System.Windows.Forms.ComboBox();
+            this.addressBookDataSet = new Database.AddressBookDataSet();
+            this.bindingSource3 = new System.Windows.Forms.BindingSource(this.components);
+            this.bizContactsTableAdapter = new Database.AddressBookDataSetTableAdapters.BizContactsTableAdapter();
+            this.addressBookDataSet1 = new Database.AddressBookDataSet1();
+            this.bindingSource4 = new System.Windows.Forms.BindingSource(this.components);
+            this.bizContactsTableAdapter1 = new Database.AddressBookDataSet1TableAdapters.BizContactsTableAdapter();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,7 +112,7 @@
             // 
             // txtState
             // 
-            this.txtState.Location = new System.Drawing.Point(125, 211);
+            this.txtState.Location = new System.Drawing.Point(125, 224);
             this.txtState.Name = "txtState";
             this.txtState.Size = new System.Drawing.Size(256, 20);
             this.txtState.TabIndex = 5;
@@ -119,10 +129,11 @@
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(125, 176);
+            this.txtCity.Location = new System.Drawing.Point(125, 180);
             this.txtCity.Name = "txtCity";
             this.txtCity.Size = new System.Drawing.Size(256, 20);
             this.txtCity.TabIndex = 7;
+            this.txtCity.TextChanged += new System.EventHandler(this.TxtCity_TextChanged);
             // 
             // label4
             // 
@@ -136,7 +147,7 @@
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(125, 136);
+            this.txtAddress.Location = new System.Drawing.Point(125, 140);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(256, 20);
             this.txtAddress.TabIndex = 9;
@@ -197,7 +208,7 @@
             // 
             // txtCompany
             // 
-            this.txtCompany.Location = new System.Drawing.Point(125, 296);
+            this.txtCompany.Location = new System.Drawing.Point(125, 300);
             this.txtCompany.Name = "txtCompany";
             this.txtCompany.Size = new System.Drawing.Size(256, 20);
             this.txtCompany.TabIndex = 18;
@@ -214,7 +225,7 @@
             // 
             // txtWebsite
             // 
-            this.txtWebsite.Location = new System.Drawing.Point(125, 331);
+            this.txtWebsite.Location = new System.Drawing.Point(125, 344);
             this.txtWebsite.Name = "txtWebsite";
             this.txtWebsite.Size = new System.Drawing.Size(256, 20);
             this.txtWebsite.TabIndex = 16;
@@ -287,6 +298,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(960, 197);
             this.dataGridView1.TabIndex = 26;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellContentClick);
             // 
             // btnSearch
             // 
@@ -318,6 +330,7 @@
             this.btnAdd.TabIndex = 30;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.BtnAdd_Click);
             // 
             // btnEdit
             // 
@@ -349,9 +362,38 @@
             this.cboSearch.Size = new System.Drawing.Size(130, 21);
             this.cboSearch.TabIndex = 33;
             // 
+            // addressBookDataSet
+            // 
+            this.addressBookDataSet.DataSetName = "AddressBookDataSet";
+            this.addressBookDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // bindingSource3
+            // 
+            this.bindingSource3.DataMember = "BizContacts";
+            this.bindingSource3.DataSource = this.addressBookDataSet;
+            // 
+            // bizContactsTableAdapter
+            // 
+            this.bizContactsTableAdapter.ClearBeforeFill = true;
+            // 
+            // addressBookDataSet1
+            // 
+            this.addressBookDataSet1.DataSetName = "AddressBookDataSet1";
+            this.addressBookDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // bindingSource4
+            // 
+            this.bindingSource4.DataMember = "BizContacts";
+            this.bindingSource4.DataSource = this.addressBookDataSet1;
+            // 
+            // bizContactsTableAdapter1
+            // 
+            this.bizContactsTableAdapter1.ClearBeforeFill = true;
+            // 
             // bindingSource1
             // 
             this.bindingSource1.DataSource = typeof(Database.BizContacts);
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.BindingSource1_CurrentChanged);
             // 
             // BizContacts
             // 
@@ -394,6 +436,10 @@
             this.Text = "BizContacts";
             this.Load += new System.EventHandler(this.BizContacts_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -435,5 +481,11 @@
         private System.Windows.Forms.TextBox txtNotes;
         private System.Windows.Forms.ComboBox cboSearch;
         private System.Windows.Forms.BindingSource bindingSource1;
+        private AddressBookDataSet addressBookDataSet;
+        private System.Windows.Forms.BindingSource bindingSource3;
+        private AddressBookDataSetTableAdapters.BizContactsTableAdapter bizContactsTableAdapter;
+        private AddressBookDataSet1 addressBookDataSet1;
+        private System.Windows.Forms.BindingSource bindingSource4;
+        private AddressBookDataSet1TableAdapters.BizContactsTableAdapter bizContactsTableAdapter1;
     }
 }
