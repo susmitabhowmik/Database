@@ -19,7 +19,6 @@ namespace Database
         string connString = @"Data Source=SUSMITABHOWC65E\SQLEXPRESS;Initial Catalog=AddressBook;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlDataAdapter dataAdapter; //allows us to build the connection between the program and the database
         System.Data.DataTable table; //table to hold information so we can fill the datagrid view
-        SqlCommandBuilder commandBuilder; //declare a new sql command builder object
         SqlConnection conn; //declares variable to hold sql connection
         string selectionStatement = "Select * from BizContacts";
         public BizContacts()
@@ -149,7 +148,7 @@ namespace Database
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             //code that will run once we finish editing a cell in the datagridview
-            commandBuilder = new SqlCommandBuilder(dataAdapter);
+            SqlCommandBuilder commandBuilder = new SqlCommandBuilder(dataAdapter);
             dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand(); //get the update command
             try
             {
@@ -181,8 +180,10 @@ namespace Database
 
         private void BtnGetImage_Click(object sender, EventArgs e)
         {
-            dlgOpenImage.ShowDialog(); //show box for selecting image
-            pictureBox1.Load(dlgOpenImage.FileName); //loads image from drive using the filename property of the dialog box
+            if (dlgOpenImage.ShowDialog() == DialogResult.OK)
+            { //show box for selecting image
+                pictureBox1.Load(dlgOpenImage.FileName); //loads image from drive using the filename property of the dialog box
+            }
         }
 
         private void PictureBox1_DoubleClick(object sender, EventArgs e)
