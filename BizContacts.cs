@@ -154,5 +154,21 @@ namespace Database
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            switch(cboSearch.SelectedItem.ToString()) //because we have a combo box
+            {
+                case "First Name":
+                    GetData("select * from bizcontacts where lower(first_name) like '%" + txtSearch.Text.ToLower() + "%'");
+                    break;
+                case "Last Name":
+                    GetData("select * from bizcontacts where lower(last_name) like '%" + txtSearch.Text.ToLower() + "%'");
+                    break;
+                case "Company":
+                    GetData("select * from bizcontacts where lower(company) like '%" + txtSearch.Text.ToLower() + "%'");
+                    break;
+            }
+        }
     }
 }
