@@ -20,14 +20,40 @@ namespace Database
         SqlDataAdapter dataAdapter; //allows us to build the connection between the program and the database
         System.Data.DataTable table; //table to hold information so we can fill the datagrid view
         SqlCommandBuilder commandBuilder; //declare a new sql command builder object
+        SqlConnection conn; //declares variable to hold sql connection
+        string selectionStatement = "Select * from BizContacts";
         public BizContacts()
         {
             InitializeComponent();
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void btnDelete_Click(object sender, EventArgs e)
         {
+            DataGridViewRow row = dataGridView1.CurrentCell.OwningRow; //grab a reference to the current row
+            string value = row.Cells["ID"].Value.ToString(); //grab the value from the id field of the selected row
+            string fname = row.Cells["First_Name"].Value.ToString();
+            string lname = row.Cells["Last_Name"].Value.ToString();
+            DialogResult result = MessageBox.Show("Do you really want to delete " + fname + " " + lname + ",record" + value,"Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            string deleteState = @"Delete from BizContacts where id = '"+value+"'"; //sql to delete the records from the table
 
+            if (result == DialogResult.Yes)
+            {
+                using (conn = new SqlConnection(connString))
+                {
+                    try
+                    {
+                        conn.Open();
+                        SqlCommand comm = new SqlCommand(deleteState, conn);
+                        comm.ExecuteNonQuery();
+                        GetData(selectionStatement); //get the data
+                        dataGridView1.Update();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
         }
 
         private void GetData(string selectCommand)
@@ -52,7 +78,7 @@ namespace Database
             cboSearch.SelectedIndex = 0; //First item and combo box is selected when form loads
             dataGridView1.DataSource = bindingSource1;
 
-            GetData("Select * from BizContacts");
+            GetData(selectionStatement);
             // TODO: This line of code loads data into the 'addressBookDataSet1.BizContacts' table. You can move, or remove it, as needed.
             this.bizContactsTableAdapter1.Fill(this.addressBookDataSet1.BizContacts);
             // TODO: This line of code loads data into the 'addressBookDataSet.BizContacts' table. You can move, or remove it, as needed.
@@ -78,7 +104,7 @@ namespace Database
                                                        City,State,Postal_Code,Phone,Notes)
                                                         values(@Date_Added, @Company, @Website, @Title, @First_Name, @Last_Name, @Address,
                                                        @City,@State,@Postal_Code,@Phone,@Notes)"; //parameter names
-            using (SqlConnection conn = new SqlConnection(connString)) //using allows disposing of low level resources
+            using (conn = new SqlConnection(connString)) //using allows disposing of low level resources
             {
                 try
                 {
@@ -103,7 +129,7 @@ namespace Database
                     MessageBox.Show(ex.Message);
                 }
             }
-            GetData("Select * from BizContacts");
+            GetData(selectionStatement);
             dataGridView1.Update(); //draws data grid view so new record is visible on the bottom
         }
 
