@@ -67,17 +67,17 @@
             this.addressBookDataSet1 = new Database.AddressBookDataSet1();
             this.bindingSource4 = new System.Windows.Forms.BindingSource(this.components);
             this.bizContactsTableAdapter1 = new Database.AddressBookDataSet1TableAdapters.BizContactsTableAdapter();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnGetImage = new System.Windows.Forms.Button();
             this.dlgOpenImage = new System.Windows.Forms.OpenFileDialog();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -396,11 +396,6 @@
             // 
             this.bizContactsTableAdapter1.ClearBeforeFill = true;
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(Database.BizContacts);
-            this.bindingSource1.CurrentChanged += new System.EventHandler(this.BindingSource1_CurrentChanged);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(611, 206);
@@ -409,6 +404,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 34;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.DoubleClick += new System.EventHandler(this.PictureBox1_DoubleClick);
             // 
             // btnGetImage
             // 
@@ -419,6 +415,11 @@
             this.btnGetImage.Text = "Get Image";
             this.btnGetImage.UseVisualStyleBackColor = true;
             this.btnGetImage.Click += new System.EventHandler(this.BtnGetImage_Click);
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(Database.BizContacts);
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.BindingSource1_CurrentChanged);
             // 
             // BizContacts
             // 
@@ -467,8 +468,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

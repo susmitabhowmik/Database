@@ -122,7 +122,14 @@ namespace Database
                     command.Parameters.AddWithValue(@"Postal_Code", txtPostalCode.Text);
                     command.Parameters.AddWithValue(@"Phone", txtMobile.Text);
                     command.Parameters.AddWithValue(@"Notes", txtNotes.Text);
-                    command.Parameters.AddWithValue(@"Image", File.ReadAllBytes(dlgOpenImage.FileName)); //convert image into array of bytes, get filename through dialog box
+                    if (dlgOpenImage.FileName != "")
+                    {
+                        command.Parameters.AddWithValue(@"Image", File.ReadAllBytes(dlgOpenImage.FileName)); //convert image into array of bytes, get filename through dialog box
+                    }
+                    else
+                    {
+                        command.Parameters.Add("@Image", SqlDbType.VarBinary).Value = DBNull.Value; //save null to database with no image
+                    }
                     command.ExecuteNonQuery(); //push to table
                 }
                 catch(Exception ex)
@@ -176,6 +183,14 @@ namespace Database
         {
             dlgOpenImage.ShowDialog(); //show box for selecting image
             pictureBox1.Load(dlgOpenImage.FileName); //loads image from drive using the filename property of the dialog box
+        }
+
+        private void PictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            Form frm = new Form();
+            frm.BackgroundImage = pictureBox1.Image; //set background image of new preview form of image
+            frm.Size = pictureBox1.Image.Size; //sets the size of the form to the size of the image so the image is wholly visible
+            frm.Show();
         }
     }
 }
