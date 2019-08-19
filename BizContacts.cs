@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
+using System.IO; //needed for file use
 using System.Diagnostics;
 using System.Data;
 
@@ -101,9 +101,9 @@ namespace Database
             SqlCommand command; //declares a new sql command object
             //field names in the table
             string insert = @"insert into BizContacts(Date_Added, Company, Website, Title, First_Name, Last_Name, Address,
-                                                       City,State,Postal_Code,Phone,Notes)
+                                                       City,State,Postal_Code,Phone,Notes,Image)
                                                         values(@Date_Added, @Company, @Website, @Title, @First_Name, @Last_Name, @Address,
-                                                       @City,@State,@Postal_Code,@Phone,@Notes)"; //parameter names
+                                                       @City,@State,@Postal_Code,@Phone,@Notes,@Image)"; //parameter names
             using (conn = new SqlConnection(connString)) //using allows disposing of low level resources
             {
                 try
@@ -122,6 +122,7 @@ namespace Database
                     command.Parameters.AddWithValue(@"Postal_Code", txtPostalCode.Text);
                     command.Parameters.AddWithValue(@"Phone", txtMobile.Text);
                     command.Parameters.AddWithValue(@"Notes", txtNotes.Text);
+                    command.Parameters.AddWithValue(@"Image", File.ReadAllBytes(dlgOpenImage.FileName)); //convert image into array of bytes, get filename through dialog box
                     command.ExecuteNonQuery(); //push to table
                 }
                 catch(Exception ex)
@@ -169,6 +170,12 @@ namespace Database
                     GetData("select * from bizcontacts where lower(company) like '%" + txtSearch.Text.ToLower() + "%'");
                     break;
             }
+        }
+
+        private void BtnGetImage_Click(object sender, EventArgs e)
+        {
+            dlgOpenImage.ShowDialog(); //show box for selecting image
+            pictureBox1.Load(dlgOpenImage.FileName); //loads image from drive using the filename property of the dialog box
         }
     }
 }
