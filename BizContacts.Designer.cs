@@ -71,6 +71,8 @@
             this.btnGetImage = new System.Windows.Forms.Button();
             this.dlgOpenImage = new System.Windows.Forms.OpenFileDialog();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.btnExportOpen = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.addressBookDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource3)).BeginInit();
@@ -421,11 +423,26 @@
             this.bindingSource1.DataSource = typeof(Database.BizContacts);
             this.bindingSource1.CurrentChanged += new System.EventHandler(this.BindingSource1_CurrentChanged);
             // 
+            // btnExportOpen
+            // 
+            this.btnExportOpen.Location = new System.Drawing.Point(886, 99);
+            this.btnExportOpen.Name = "btnExportOpen";
+            this.btnExportOpen.Size = new System.Drawing.Size(104, 39);
+            this.btnExportOpen.TabIndex = 36;
+            this.btnExportOpen.Text = "Export / Open Excel";
+            this.btnExportOpen.UseVisualStyleBackColor = true;
+            this.btnExportOpen.Click += new System.EventHandler(this.BtnExportOpen_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.Filter = "Excel Files (*.xlsx)|*.xlsx";
+            // 
             // BizContacts
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1002, 640);
+            this.Controls.Add(this.btnExportOpen);
             this.Controls.Add(this.btnGetImage);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cboSearch);
@@ -519,5 +536,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnGetImage;
         private System.Windows.Forms.OpenFileDialog dlgOpenImage;
+        private System.Windows.Forms.Button btnExportOpen;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

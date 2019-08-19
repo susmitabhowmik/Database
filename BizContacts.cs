@@ -9,8 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO; //needed for file use
-using System.Diagnostics;
+using System.Diagnostics; //allows us to open excel using process.start
 using System.Data;
+using Microsoft.Office.Interop.Excel; //allows us to make excel objects
 
 namespace Database
 {
@@ -60,7 +61,7 @@ namespace Database
             try
             {
                 dataAdapter = new SqlDataAdapter(selectCommand, connString);
-                table = new DataTable();
+                table = new System.Data.DataTable();
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table); //fill the data table
                 bindingSource1.DataSource = table; //bind bindingsource to table
@@ -192,6 +193,51 @@ namespace Database
             frm.BackgroundImage = pictureBox1.Image; //set background image of new preview form of image
             frm.Size = pictureBox1.Image.Size; //sets the size of the form to the size of the image so the image is wholly visible
             frm.Show();
+        }
+
+        private void BtnExportOpen_Click(object sender, EventArgs e)
+        {
+            _Application excel = new Microsoft.Office.Interop.Excel.Application(); //new excel object
+            _Workbook workbook = excel.Workbooks.Add(Type.Missing); //make a workbook
+            _Worksheet worksheet = null; //make a worksheet and for now set it to null
+            try
+            {
+                worksheet = workbook.ActiveSheet; //set active sheet to workbook
+                worksheet.Name = "Business Contacts";
+                //because both data grids and excel sheets are tabular, use nested loops to write from one to the other
+                for (int rowIndex = 0; rowIndex < dataGridView1.Rows.Count - 1; rowIndex++) //this loop controls the row number
+                {
+                    for (int colIndex = 0; colIndex < dataGridView1.Columns.Count; colIndex++) //this is needed to go over the columns of each row
+                    {
+                        if (rowIndex == 0) //the first row at i 0 is the header row 
+                        {
+                            //in Excel, row and column indexes begin at 1,1 and not 0,0
+                            //write out the header texts from the grid view to excel sheet
+                            worksheet.Cells[rowIndex+1,colIndex+1] = dataGridView1.Columns[colIndex].HeaderText;
+                        }
+                        else
+                        {
+                            worksheet.Cells[rowIndex + 1, colIndex + 1] = dataGridView1.Rows[rowIndex].Cells[colIndex].Value.ToString();
+                            //fix the row index at 1, then change the column index over its possible value from 0 - 5
+                        }
+                    }
+                }
+                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    workbook.SaveAs(saveFileDialog1.FileName); //save file to drive
+                    Process.Start("excel.exe", saveFileDialog1.FileName);//load excel with the exported file
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally //this code always runs
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
+            }
         }
     }
 }
