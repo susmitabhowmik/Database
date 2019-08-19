@@ -19,6 +19,7 @@ namespace Database
         string connString = @"Data Source=SUSMITABHOWC65E\SQLEXPRESS;Initial Catalog=AddressBook;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         SqlDataAdapter dataAdapter; //allows us to build the connection between the program and the database
         System.Data.DataTable table; //table to hold information so we can fill the datagrid view
+        SqlCommandBuilder commandBuilder; //declare a new sql command builder object
         public BizContacts()
         {
             InitializeComponent();
@@ -38,6 +39,7 @@ namespace Database
                 table.Locale = System.Globalization.CultureInfo.InvariantCulture;
                 dataAdapter.Fill(table); //fill the data table
                 bindingSource1.DataSource = table; //bind bindingsource to table
+                dataGridView1.Columns[0].ReadOnly = true; //prevents id field from being change
             }
             catch(SqlException ex)
             {
@@ -108,6 +110,23 @@ namespace Database
         private void TxtCity_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            //code that will run once we finish editing a cell in the datagridview
+            commandBuilder = new SqlCommandBuilder(dataAdapter);
+            dataAdapter.UpdateCommand = commandBuilder.GetUpdateCommand(); //get the update command
+            try
+            {
+                bindingSource1.EndEdit(); // updates the table in memory in our program
+                dataAdapter.Update(table); // updates the database
+                MessageBox.Show("update successful!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
